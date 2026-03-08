@@ -49,3 +49,4 @@ As a data scentist working in manufacturing company, my main job is to monitor m
   - Z score method and improvement
   - ARIMA forecasting and residual based anomaly detection
   - Isolation forest
+  - XGBoost classification
