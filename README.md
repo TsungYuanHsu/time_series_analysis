@@ -10,8 +10,19 @@ From this project "Time Series - Machine Temperature", the highlights are addres
   - Residual based anomaly detection is chosen
   - ARIMA forecasting on test period follows too well on actual data. As a result, the residual remains small at anomaly timestamp, making it not flagged
 - Isolation Forest conclusion
-  - Approach 1 (train with the whole period): f1 score is 0.58 with 60 mins consistency check. Cons is data leakage (use the whole dataset to choose proper parameters)
-  - Approach 2 (train with 70% data and test 30% data and whole data set): f1 score is 0.56 with mins consistency check for whole dataset and 0.73 in test set. Approach 2 is more practical to use since only reference period is used for model training and applies anomaly detection for unknown future with trained model
+  - Split data into 60/20/20 for training/validation/test
+  - Fine tune model parameters with training and validation set to prevent data leakage
+  - Chosen parameters of isolation forest: contamination=0.12 and n_estimators=100 based on f1 score of positive and negative
+  - Trained model with training and validation set can achieve f1 score of 0.9 in test set.
+  - Consistency condition check is added to prevent false alarm by detecting continuous anomalies: Improve to f1 score of 0.92 for test set  
+    Note: Improve to f1 score of 0.59 from 0.54 for whole data set
+- XGBoost classification
+  - Key technique: permutation importance analysis, parameter effect study, consisitency effect analysis, and threshold effect analysis
+  - Using permutation importance analysis indicates useful features for training. PR score increases from 0.28 to 0.51 for validation set
+  - PR score of 0.51 is mainly caused by data problem instead of overfitting
+  - Trained model (with training and validation set) can have 0.74 PR score at test set
+  - 0.51 precision for positive can be improved to 0.54 via consistency check and 0.65 via modified threshold (0.7)
+  - 0.67 f1 score for positive can be improved to 0.7 via consistency check and 0.78 via modified threshold (0.7)
 
 ## ℹ️ Project Introduction 
 **What is time series dataset**  
